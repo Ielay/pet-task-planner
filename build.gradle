@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'jacoco'
 }
 
 group 'org.example'
@@ -48,3 +49,13 @@ test {
         events "passed", "skipped", "failed"
     }
 }
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled false
+        csv.enabled false
+    }
+}
+
+check.dependsOn jacocoTestReport
