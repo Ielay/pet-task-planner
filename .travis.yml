@@ -1,2 +1,5 @@
 language: java
 jdk: openjdk11
+
+#code coverage report for coveralls
+after_success: ./gradlew cobertura coveralls

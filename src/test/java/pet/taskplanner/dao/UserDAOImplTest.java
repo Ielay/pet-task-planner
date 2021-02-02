@@ -38,6 +38,7 @@ class UserDAOImplTest extends DAOTest {
 
         User foundUser = userDAO.getUser(userEmail);
 
+        assertEquals(1, foundUser.getId());
         assertEquals("ivannn1983", foundUser.getNickname());
         assertEquals(userEmail, foundUser.getEmail());
         assertEquals("qwerty", foundUser.getPassword());

@@ -1,5 +1,8 @@
 plugins {
     id 'java'
+    //code coverage
+    id 'net.saliman.cobertura' version '2.3.1'
+    id 'com.github.kt3k.coveralls' version '2.10.2'
 }
 
 group 'org.example'
@@ -35,6 +38,9 @@ dependencies {
 
     testCompile group: 'org.springframework', name: 'spring-test', version: springVersion
 }
+
+// coveralls plugin depends on xml format report
+cobertura.coverageFormats = ['html', 'xml']
 
 java {
     sourceCompatibility = JavaVersion.VERSION_11
