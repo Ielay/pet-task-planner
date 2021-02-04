@@ -1,0 +1,35 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd"
+
+        logicalFilePath="v1.1">
+
+    <changeSet id="create_tasks_table" author="ielay">
+        <createTable tableName="tasks">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="pk_tasks" nullable="false"/>
+            </column>
+            <column name="header" type="varchar(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(256)"/>
+            <column name="begin_time" type="timestamp with time zone">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deadline" type="timestamp with time zone">
+                <constraints nullable="false"/>
+            </column>
+            <column name="finished" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="expired" type="boolean"/>
+            <column name="user_id" type="bigint">
+                <constraints foreignKeyName="fk_tasks_users" references="users(id)" nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

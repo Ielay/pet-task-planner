@@ -36,7 +36,7 @@ public class TestDataHelper {
         try (var conn = ds.getConnection();
              var stat = conn.createStatement()) {
             stat.execute(
-                    "TRUNCATE users RESTART IDENTITY;"
+                    "TRUNCATE users RESTART IDENTITY CASCADE;"
             );
         }
     }
