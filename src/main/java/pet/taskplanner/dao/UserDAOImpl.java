@@ -24,7 +24,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public boolean createUser(User newUser) throws SQLException {
         try (var conn = ds.getConnection();
-             var stat = conn.prepareStatement("INSERT INTO users(nickname, email, password) VALUES (?, ?, ?)")) {
+             var stat = conn.prepareStatement("INSERT INTO users (nickname, email, password) VALUES (?, ?, ?)")) {
             stat.setString(1, newUser.getNickname());
             stat.setString(2, newUser.getEmail());
             stat.setString(3, newUser.getPassword());

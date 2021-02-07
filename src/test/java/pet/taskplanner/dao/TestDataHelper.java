@@ -20,6 +20,7 @@ public class TestDataHelper {
         try (var conn = ds.getConnection();
              var stat = conn.createStatement()) {
             insertAllIntoUsers(stat);
+            insertAllIntoTasks(stat);
         }
     }
 
@@ -32,10 +33,20 @@ public class TestDataHelper {
         );
     }
 
+    private void insertAllIntoTasks(Statement stat) throws SQLException {
+        stat.execute(
+                "INSERT INTO tasks (header, description, begin_time, deadline, finished, expired, user_id) VALUES" +
+                "('Buy some food', 'Go to market and buy something to eat', '2016-06-22 00:00:00-07', '2016-06-23 00:00:00-07', false, false, 1)," +
+                "('Push up 10 times', null, '2016-06-22 00:00:00-07', '2016-06-23 00:00:00-07', false, false, 1)," +
+                "('Go to bed until midnight', null, '2016-06-22 00:00:00-07', '2016-06-23 00:00:00-07', false, false, 1)"
+        );
+    }
+
     public void dropAll() throws SQLException {
         try (var conn = ds.getConnection();
              var stat = conn.createStatement()) {
             stat.execute(
+                    "TRUNCATE tasks RESTART IDENTITY CASCADE;" +
                     "TRUNCATE users RESTART IDENTITY CASCADE;"
             );
         }

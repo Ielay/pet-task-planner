@@ -3,7 +3,6 @@ package pet.taskplanner.dao;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import liquibase.integration.spring.SpringLiquibase;
-import org.apache.commons.lang3.NotImplementedException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,6 +11,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.testcontainers.containers.PostgreSQLContainer;
@@ -20,7 +20,6 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
 import javax.sql.DataSource;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -31,6 +30,8 @@ import static pet.taskplanner.dao.DAOTest.DAOTestConfiguration.*;
  * @author lelay
  * @since 01.02.2021
  */
+//we need new DataSource bean for each test class because testcontainers resets a container
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 @ContextConfiguration(classes = {
         DAOTest.DAOTestConfiguration.class
 })
@@ -41,6 +42,7 @@ public abstract class DAOTest {
     @Autowired
     protected TestDataHelper helper;
 
+    //containers resets after each test class (it may get new port from testcontainers)
     @Container
     protected static PostgreSQLContainer postgres = new PostgreSQLContainer(DockerImageName.parse("postgres:10.15-alpine"))
             .withDatabaseName(DB_NAME)
