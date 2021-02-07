@@ -1,28 +1,40 @@
 package pet.taskplanner.entity;
 
+import pet.taskplanner.entity.annotation.Column;
+import pet.taskplanner.entity.annotation.Table;
+
+import java.util.List;
+
 /**
  * @author lelay
  * @since 01.02.2021
  */
-public class User {
+@Table("users")
+public class User implements Entity {
 
-    private long id;
+    @Column("id")
+    private Long id;
 
+    @Column("nickname")
     private String nickname;
 
+    @Column("email")
     private String email;
 
+    @Column("password")
     private String password;
+
+    private List<Task> tasks;
 
     public User() {
 
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -48,6 +60,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
     }
 
     @Override

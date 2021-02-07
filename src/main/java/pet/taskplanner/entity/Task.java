@@ -7,9 +7,11 @@ import java.util.List;
  * @author lelay
  * @since 05.02.2021
  */
-public class Task {
+public class Task implements Entity {
 
     private Long id;
+
+    private String header;
 
     private String description;
 
@@ -21,7 +23,7 @@ public class Task {
 
     private Boolean expired;
 
-    private List<User> users;
+    private Long userId;
 
     public Task() {
 
@@ -67,19 +69,27 @@ public class Task {
         this.finished = finished;
     }
 
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
-
     public Boolean getExpired() {
         return expired;
     }
 
     public void setExpired(Boolean expired) {
         this.expired = expired;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getHeader() {
+        return header;
+    }
+
+    public void setHeader(String header) {
+        this.header = header;
     }
 }

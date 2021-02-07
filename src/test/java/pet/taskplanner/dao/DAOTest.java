@@ -70,6 +70,11 @@ public abstract class DAOTest {
         }
 
         @Bean
+        public TaskDAOImpl taskDAOImpl(@Qualifier("hikariDataSource") DataSource dataSource) {
+            return new TaskDAOImpl(dataSource);
+        }
+
+        @Bean
         public UserDAOImpl userDAOImpl(@Qualifier("hikariDataSource") DataSource dataSource) {
             return new UserDAOImpl(dataSource);
         }

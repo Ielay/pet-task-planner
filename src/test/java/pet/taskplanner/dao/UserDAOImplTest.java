@@ -18,7 +18,7 @@ class UserDAOImplTest extends DAOTest {
     private UserDAOImpl userDAO;
 
     @Test
-    void createUser_shouldAddNewRecordToUsersTable_ifDataIsCorrect() throws SQLException {
+    void createUser_shouldAddNewRecordToUsersTable_ifDataIsCorrect() throws Exception {
         final String userEmail = "ololo_97_real@yandex.ru";
         User user = new User();
         user.setNickname("ololo_97");
@@ -30,10 +30,11 @@ class UserDAOImplTest extends DAOTest {
         assertTrue(created, "Should be created");
         User foundUser = userDAO.getUser(userEmail);
         assertNotNull(foundUser);
+        assertEquals(4, foundUser.getId());
     }
 
     @Test
-    void getUser_shouldGetUserByEmail_ifItExistsInDatabase() throws SQLException {
+    void getUser_shouldGetUserByEmail_ifItExistsInDatabase() throws Exception {
         final String userEmail = "ivan.ivanov@mail.ru";
 
         User foundUser = userDAO.getUser(userEmail);

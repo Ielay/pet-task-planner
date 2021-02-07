@@ -19,5 +19,5 @@ public interface UserDAO {
     /**
      * @return found user or null if no user was found by specified email
      */
-     @Nullable User getUser(String email) throws SQLException;
+     @Nullable User getUser(String email) throws Exception;
 }

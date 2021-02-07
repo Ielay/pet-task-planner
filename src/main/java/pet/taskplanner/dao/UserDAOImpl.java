@@ -1,11 +1,9 @@
 package pet.taskplanner.dao;
 
 import pet.taskplanner.entity.User;
-import pet.taskplanner.mapper.UserMapper;
+import pet.taskplanner.mapper.EntityMapper;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -15,7 +13,7 @@ import java.sql.SQLException;
  */
 public class UserDAOImpl implements UserDAO {
 
-    private final UserMapper userMapper = new UserMapper();
+    private final EntityMapper entityMapper = new EntityMapper();
 
     private final DataSource ds;
 
@@ -25,26 +23,25 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public boolean createUser(User newUser) throws SQLException {
-        try (Connection conn = ds.getConnection();
-             PreparedStatement stat = conn.prepareStatement("INSERT INTO users VALUES (?, ?, ?, ?)")) {
-            stat.setLong(1, newUser.getId());
-            stat.setString(2, newUser.getNickname());
-            stat.setString(3, newUser.getEmail());
-            stat.setString(4, newUser.getPassword());
+        try (var conn = ds.getConnection();
+             var stat = conn.prepareStatement("INSERT INTO users(nickname, email, password) VALUES (?, ?, ?)")) {
+            stat.setString(1, newUser.getNickname());
+            stat.setString(2, newUser.getEmail());
+            stat.setString(3, newUser.getPassword());
 
             return stat.executeUpdate() == 1;
         }
     }
 
     @Override
-    public User getUser(String email) throws SQLException {
-        try (Connection conn = ds.getConnection();
-             PreparedStatement stat = conn.prepareStatement("SELECT * FROM users WHERE email = ?")) {
+    public User getUser(String email) throws Exception {
+        try (var conn = ds.getConnection();
+             var stat = conn.prepareStatement("SELECT * FROM users WHERE email = ?")) {
             stat.setString(1, email);
 
             ResultSet rs = stat.executeQuery();
 
-            return userMapper.mapFromResultSet(rs);
+            return entityMapper.map(rs, User.class);
         }
     }
 }

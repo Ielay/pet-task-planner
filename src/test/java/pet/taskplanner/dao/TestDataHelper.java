@@ -25,10 +25,10 @@ public class TestDataHelper {
 
     private void insertAllIntoUsers(Statement stat) throws SQLException {
         stat.execute(
-                "INSERT INTO users VALUES" +
-                        "(1, 'ivannn1983', 'ivan.ivanov@mail.ru', 'qwerty')," +
-                        "(2, 'xx_alex_xx', 'alexx@gmail.com', 'abcdef')," +
-                        "(3, 'qwerty_user', 'qwerty_user@yandex.ru', '123qwe_');"
+                "INSERT INTO users (nickname, email, password) VALUES" +
+                        "('ivannn1983', 'ivan.ivanov@mail.ru', 'qwerty')," +
+                        "('xx_alex_xx', 'alexx@gmail.com', 'abcdef')," +
+                        "('qwerty_user', 'qwerty_user@yandex.ru', '123qwe_');"
         );
     }
 
